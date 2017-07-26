@@ -7,7 +7,7 @@ import java.util.Collection;
 
 @Getter
 @Setter
-public class SearchResult {
+public class SearchMovie {
 
     private Integer hits;
 
