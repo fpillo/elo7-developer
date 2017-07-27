@@ -8,6 +8,8 @@ import java.util.Collection;
 
 public interface MovieGateway {
 
+    Movie save(Movie movie) throws Exception;
+
     Collection<Movie> findByQuery(SearchQuery searchQuery);
 
 }

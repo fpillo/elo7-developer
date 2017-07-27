@@ -17,8 +17,8 @@ public class Movie {
 
     private Set<String> genres;
 
-    private Long grade;
+    private Float grade;
 
-    private Long score;
+    private Float score;
 
 }
