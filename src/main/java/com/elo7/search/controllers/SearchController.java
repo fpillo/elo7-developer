@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 @RestController
@@ -23,9 +22,9 @@ public class SearchController {
         this.searchMovies = searchMovies;
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/movies", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(method = RequestMethod.POST, value = "/movies", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Collection<SearchResult> search(@RequestBody final SearchQuery searchQuery) {
-        return new ArrayList<>();
+        return searchMovies.search(searchQuery);
     }
 
 }
