@@ -6,9 +6,6 @@ import com.elo7.search.gateways.MovieGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 @Component
 public class SearchMovies {
 
@@ -19,8 +16,8 @@ public class SearchMovies {
         this.movieGateway = movieGateway;
     }
 
-    public Collection<SearchResult> search(final SearchQuery searchQuery) {
-        return new ArrayList<>();
+    public SearchResult search(final SearchQuery searchQuery) {
+        return movieGateway.findByQuery(searchQuery);
     }
 
 }
