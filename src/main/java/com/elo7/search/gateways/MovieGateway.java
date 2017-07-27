@@ -8,7 +8,7 @@ import java.util.Collection;
 
 public interface MovieGateway {
 
-    Movie save(Movie movie) throws Exception;
+    Movie save(Movie movie);
 
     Collection<Movie> findByQuery(SearchQuery searchQuery);
 
