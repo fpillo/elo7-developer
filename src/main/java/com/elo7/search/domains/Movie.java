@@ -19,6 +19,7 @@ public class Movie {
     @NotBlank(message = "movie.title.notBlank")
     private String title;
 
+    @NotNull(message = "movie.genres.notNull")
     private Set<String> genres;
 
     @NotNull(message = "movie.grade.notNull")
