@@ -5,3 +5,8 @@ server:
 management:
   port: 8081
   context-path: /search
+
+elasticsearch:
+  host: localhost
+  port: 9300
+  clustername: elasticsearch
