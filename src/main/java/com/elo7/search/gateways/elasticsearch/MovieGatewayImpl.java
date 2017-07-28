@@ -9,10 +9,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
+import org.elasticsearch.common.lucene.search.function.CombineFunction;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.functionscore.ScoreFunctionBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +49,13 @@ public class MovieGatewayImpl implements MovieGateway {
     public SearchResult findByQuery(final SearchQuery searchQuery) {
         final SearchResponse response = client.prepareSearch("search")
                 .setTypes("movies")
-                .setQuery(QueryBuilders.matchQuery("title", searchQuery.getQ()))
+                .setQuery(
+                QueryBuilders
+                        .functionScoreQuery(
+                                QueryBuilders.matchQuery("title", searchQuery.getQ()),
+                                ScoreFunctionBuilders.fieldValueFactorFunction("grade"))
+                        .boostMode(CombineFunction.SUM)
+                )
                 .setTimeout(TimeValue.timeValueMillis(2000))
                 .get();
 
