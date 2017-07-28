@@ -70,6 +70,7 @@
 			<plugin>
 		    	<groupId>com.spotify</groupId>
 		        <artifactId>docker-maven-plugin</artifactId>
+		        <version>1.0.0</version>
 		        <configuration>
 		    		<dockerDirectory>${project.basedir}</dockerDirectory>
         			<imageName>elo7/${project.artifactId}</imageName>
@@ -78,6 +79,11 @@
 		              		<targetPath>/</targetPath>
 		              		<directory>${project.build.directory}</directory>
 		              		<include>${project.build.finalName}.jar</include>
+		              		<excludes>
+                            	<exclude>target/**/*</exclude>
+                            	<exclude>pom.xml</exclude>
+                            	<exclude>*.iml</exclude>
+                        	</excludes>
 		            	</resource>
 		        	</resources>
 		        </configuration>
