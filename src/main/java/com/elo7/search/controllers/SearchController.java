@@ -22,7 +22,7 @@ public class SearchController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/search/movies", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public SearchResult search(@RequestParam(required = false) final String q) {
+    public SearchResult search(@RequestParam final String q) {
         final SearchQuery searchQuery = new SearchQuery(q);
         return searchMovies.search(searchQuery);
     }

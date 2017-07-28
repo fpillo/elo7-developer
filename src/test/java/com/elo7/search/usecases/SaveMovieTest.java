@@ -38,6 +38,12 @@ public class SaveMovieTest {
         saveMovie.save(movie("Alien", new HashSet<>(Arrays.asList( "Horror", "Sci-Fi")), 8.5f));
     }
 
+    @Test(expected = NullPointerException.class)
+    public void test_save_null_movie() {
+        saveMovie.save(null);
+    }
+
+
     @Test(expected = RuntimeException.class)
     public void test_save_invalid_movie() {
         saveMovie.save(movie("Predator", new HashSet<>(Arrays.asList( "Action", "Sci-Fi", "Thriller")), null));
