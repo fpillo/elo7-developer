@@ -5,9 +5,9 @@ import com.elo7.search.domains.SearchResult;
 import com.elo7.search.usecases.SearchMovies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -20,8 +20,9 @@ public class SearchController {
         this.searchMovies = searchMovies;
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/search/movies", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public SearchResult search(@RequestBody final SearchQuery searchQuery) {
+    @RequestMapping(method = RequestMethod.GET, value = "/search/movies", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public SearchResult search(@RequestParam final String q) {
+        final SearchQuery searchQuery = new SearchQuery(q);
         return searchMovies.search(searchQuery);
     }
 
