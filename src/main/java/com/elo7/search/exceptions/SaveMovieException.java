@@ -1,6 +1,6 @@
 package com.elo7.search.exceptions;
 
-public class SaveMovieException extends RuntimeException {
+public class SaveMovieException extends BusinessException {
 
     private static final String MESSAGE = "Error while saving %s.";
 
