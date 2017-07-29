@@ -2,6 +2,7 @@ package com.elo7.search.usecases;
 
 
 import com.elo7.search.domains.Movie;
+import com.elo7.search.exceptions.SaveMovieException;
 import com.elo7.search.gateways.MovieGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,7 +22,11 @@ public class SaveMovie {
 
     public Movie save(final Movie movie) {
         validateDomain.validate(movie);
-        return movieGateway.save(movie);
+        try {
+            return movieGateway.save(movie);
+        } catch (final Throwable throwable) {
+            throw new SaveMovieException(movie.getId(), throwable);
+        }
     }
 
 }

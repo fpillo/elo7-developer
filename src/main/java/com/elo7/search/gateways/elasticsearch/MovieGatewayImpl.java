@@ -3,7 +3,6 @@ package com.elo7.search.gateways.elasticsearch;
 import com.elo7.search.domains.Movie;
 import com.elo7.search.domains.SearchQuery;
 import com.elo7.search.domains.SearchResult;
-import com.elo7.search.exceptions.SaveMovieException;
 import com.elo7.search.gateways.MovieGateway;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.elasticsearch.action.index.IndexResponse;
@@ -35,16 +34,12 @@ public class MovieGatewayImpl implements MovieGateway {
     }
 
     @Override
-    public Movie save(final Movie movie) {
-        try {
-            final IndexResponse response = client.prepareIndex("search", "movies", movie.getId())
-                    .setSource(parse(movie))
-                    .get();
+    public Movie save(final Movie movie) throws Exception {
+        final IndexResponse response = client.prepareIndex("search", "movies", movie.getId())
+                .setSource(parse(movie))
+                .get();
 
-            return movie;
-        } catch (final Throwable throwable) {
-            throw new SaveMovieException(movie.getId(), throwable);
-        }
+        return movie;
     }
 
     @Override

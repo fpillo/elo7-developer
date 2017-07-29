@@ -2,6 +2,7 @@ package com.elo7.search.usecases;
 
 
 import com.elo7.search.domains.Movie;
+import com.elo7.search.exceptions.BusinessException;
 import com.elo7.search.gateways.MovieGateway;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,6 +11,7 @@ import org.mockito.Mockito;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.validation.Validation;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -46,6 +48,12 @@ public class SaveMovieTest {
     @Test(expected = RuntimeException.class)
     public void test_save_invalid_movie() {
         saveMovie.save(movie("Predator", new HashSet<>(Arrays.asList( "Action", "Sci-Fi", "Thriller")), null));
+    }
+
+    @Test(expected = BusinessException.class)
+    public void test_save_movie_gateway_fail() throws Exception {
+        Mockito.when(movieGateway.save(Mockito.any(Movie.class))).thenThrow(IOException.class);
+        saveMovie.save(movie("Predator", new HashSet<>(Arrays.asList( "Action", "Sci-Fi", "Thriller")), 9.1f));
     }
 
     private Movie movie(final String name, final Set<String> genres, final Float grade) {
