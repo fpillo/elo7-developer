@@ -6,8 +6,6 @@ import com.elo7.search.gateways.MovieGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
-
 @Component
 public class SaveMovie {
 
@@ -22,13 +20,8 @@ public class SaveMovie {
     }
 
     public Movie save(final Movie movie) {
-        setUUID(movie);
         validateDomain.validate(movie);
         return movieGateway.save(movie);
-    }
-
-    private void setUUID(final Movie movie) {
-        movie.setId(UUID.randomUUID().toString());
     }
 
 }
