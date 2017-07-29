@@ -21,7 +21,7 @@ public class SearchController {
         this.searchMovies = searchMovies;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/search/movies", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(method = RequestMethod.GET, value = "/search/movies", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public SearchResult search(@RequestParam final String q) {
         final SearchQuery searchQuery = new SearchQuery(q);
         return searchMovies.search(searchQuery);
