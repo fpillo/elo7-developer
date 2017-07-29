@@ -16,5 +16,5 @@ spring:
   profiles: container
 
 elasticsearch:
-  clustername: elasticsearch
+  clustername: docker-cluster
 
