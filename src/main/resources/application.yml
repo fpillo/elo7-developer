@@ -15,8 +15,3 @@ elasticsearch:
 spring:
   profiles: container
 
-elasticsearch:
-  host: localhost
-  port: 9300
-  clustername: docker-cluster
-
