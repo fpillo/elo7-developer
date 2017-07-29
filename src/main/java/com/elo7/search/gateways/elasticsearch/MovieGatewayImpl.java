@@ -13,12 +13,14 @@ import org.elasticsearch.common.lucene.search.function.CombineFunction;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.functionscore.ScoreFunctionBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
 
@@ -49,17 +51,24 @@ public class MovieGatewayImpl implements MovieGateway {
     public SearchResult findByQuery(final SearchQuery searchQuery) {
         final SearchResponse response = client.prepareSearch("search")
                 .setTypes("movies")
-                .setQuery(
-                QueryBuilders
-                        .functionScoreQuery(
-                                QueryBuilders.matchQuery("title", searchQuery.getQ()),
-                                ScoreFunctionBuilders.fieldValueFactorFunction("grade"))
-                        .boostMode(CombineFunction.SUM)
-                )
+                .setQuery(createQueryBySearchQuery(searchQuery))
                 .setTimeout(TimeValue.timeValueMillis(2000))
                 .get();
 
         return createResult(response.getHits());
+    }
+
+    private QueryBuilder createQueryBySearchQuery(final SearchQuery searchQuery) {
+        QueryBuilder queryBuilder = QueryBuilders.matchQuery("title", searchQuery.getQ());
+        if (StringUtils.isEmpty(searchQuery.getQ())) {
+            queryBuilder = QueryBuilders.matchAllQuery();
+        }
+
+        return QueryBuilders
+                .functionScoreQuery(
+                    queryBuilder,
+                    ScoreFunctionBuilders.fieldValueFactorFunction("grade"))
+                .boostMode(CombineFunction.SUM);
     }
 
     private XContentBuilder parse(final Movie movie) throws Exception {
