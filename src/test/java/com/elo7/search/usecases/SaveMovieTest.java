@@ -2,7 +2,7 @@ package com.elo7.search.usecases;
 
 
 import com.elo7.search.domains.Movie;
-import com.elo7.search.exceptions.BusinessException;
+import com.elo7.search.exceptions.SaveMovieException;
 import com.elo7.search.gateways.MovieGateway;
 import org.junit.Before;
 import org.junit.Test;
@@ -50,7 +50,7 @@ public class SaveMovieTest {
         saveMovie.save(movie("Predator", new HashSet<>(Arrays.asList( "Action", "Sci-Fi", "Thriller")), null));
     }
 
-    @Test(expected = BusinessException.class)
+    @Test(expected = SaveMovieException.class)
     public void test_save_movie_gateway_fail() throws Exception {
         Mockito.when(movieGateway.save(Mockito.any(Movie.class))).thenThrow(IOException.class);
         saveMovie.save(movie("Predator", new HashSet<>(Arrays.asList( "Action", "Sci-Fi", "Thriller")), 9.1f));
