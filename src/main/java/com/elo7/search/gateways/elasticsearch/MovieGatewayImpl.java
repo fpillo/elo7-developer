@@ -43,7 +43,7 @@ public class MovieGatewayImpl implements MovieGateway {
 
             return movie;
         } catch (final Throwable throwable) {
-            throw new SaveMovieException();
+            throw new SaveMovieException(movie.getId(), throwable);
         }
     }
 
