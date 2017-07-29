@@ -10,3 +10,11 @@ elasticsearch:
   host: localhost
   port: 9300
   clustername: elasticsearch
+---
+
+spring:
+  profiles: container
+
+elasticsearch:
+  clustername: elasticsearch
+
