@@ -15,3 +15,8 @@ elasticsearch:
 spring:
   profiles: container
 
+elasticsearch:
+  host: ${ELASTICSEARCH_HOST}
+  port: ${ELASTICSEARCH_PORT}
+  clustername: ${ELASTICSEARCH_CLUSTERNAME}
+
