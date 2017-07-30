@@ -1,16 +1,16 @@
 #!/bin/bash
+echo "Setup elastic enviroment..."
+
+while ! curl http://localhost:9200; do sleep 5; done;
 
 curl='/usr/bin/curl'
 elastic_url='http://localhost:9200'
 index='/search'
 args='-X PUT -H "Accept: application/json"'
 
-echo "Setup elastic enviroment..."
-
-echo "Creating index..."
+echo "creating index..."
 response="$($curl --silent --write-out 'HTTPSTATUS:%{http_code}' $args $elastic_url$index)"
 status=$(echo $response | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
-echo $status
 
 if [ $status -eq 200 ]
 then

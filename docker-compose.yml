@@ -7,7 +7,6 @@ services:
       - "9200:9200"  
       - "9300:9300"
     environment:
-      - "cluster.name=elasticsearch"
       - "xpack.security.enabled=false"
       - "http.host=0.0.0.0"
       - "transport.host=127.0.0.1"
@@ -24,4 +23,6 @@ services:
       - ELASTICSEARCH_PORT=9300
       - ELASTICSEARCH_CLUSTERNAME=elasticsearch
     depends_on:
+      - elasticsearch
+    links:
       - elasticsearch
