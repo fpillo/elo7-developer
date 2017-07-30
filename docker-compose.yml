@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   elasticsearch:
-    image: elastic
+    image: elo7/elastic
     ports:
       - "9200:9200"  
       - "9300:9300"
