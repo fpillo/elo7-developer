@@ -12,7 +12,7 @@ Como rodar:
 1) Clonar o projeto ;)
 
 2) Gerar imagem docker customizada do elastic search.
-Dentro do diretório /src/main/elasticsearch rodar docker build -t elo7/elastic .
+Dentro do diretório /src/main/elasticsearch rodar: docker build -t elo7/elastic .
 
 3) Build e imagem docker do projeto. Na raiz do projeto rodar: mvn clean package docker:build
 
