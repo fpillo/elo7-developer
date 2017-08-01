@@ -27,9 +27,11 @@ public class ElasticSearchConfig {
     public Client client() throws Exception {
         final Settings settings = Settings.builder()
                 .put("cluster.name", clusterName)
+                .put("client.transport.sniff", false)
                 .build();
 
-        final TransportClient client = new PreBuiltTransportClient(settings)
+        final TransportClient client =
+                new PreBuiltTransportClient(settings)
                 .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(host), port));
 
         return client;

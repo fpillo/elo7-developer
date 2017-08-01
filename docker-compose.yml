@@ -8,11 +8,10 @@ services:
       - "9300:9300"
     environment:
       - "xpack.security.enabled=false"
-      - "http.host=0.0.0.0"
-      - "transport.host=127.0.0.1"
+      - "http.port=9200"
       - "transport.tcp.port=9300"
-      - "transport.publish_host=127.0.0.1"
-      - "transport.publish_port=9300"
+      - "discovery.type=single-node"
+      - "network.host=0.0.0.0"
   search:
     image: elo7/search
     ports:
@@ -21,8 +20,6 @@ services:
     environment:
       - ELASTICSEARCH_HOST=elasticsearch
       - ELASTICSEARCH_PORT=9300
-      - ELASTICSEARCH_CLUSTERNAME=elasticsearch
+      - "ELASTICSEARCH_CLUSTERNAME=elastic-cluster"
     depends_on:
-      - elasticsearch
-    links:
       - elasticsearch
