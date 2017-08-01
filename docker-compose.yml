@@ -10,8 +10,6 @@ services:
       - "xpack.security.enabled=false"
       - "http.port=9200"
       - "transport.tcp.port=9300"
-      - "discovery.type=single-node"
-      - "network.host=0.0.0.0"
   search:
     image: elo7/search
     ports:
